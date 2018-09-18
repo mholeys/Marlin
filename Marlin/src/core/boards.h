@@ -285,6 +285,7 @@
 
 #define BOARD_TEENSY31_32             4100  // Teensy3.1 and Teensy3.2
 #define BOARD_TEENSY35_36             4101  // Teensy3.5 and Teensy3.6
+#define BOARD_TEENSY35_36_MH          8571   // MHOLEYS Custom board
 
 //
 // STM32 ARM Cortex-M4F
