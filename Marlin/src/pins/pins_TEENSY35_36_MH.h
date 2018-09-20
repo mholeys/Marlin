@@ -86,12 +86,14 @@
 //
 // Limit Switches
 //
+#ifdef MAX_ENDSTOPS
+  #define X_MAX_PIN         22
+  #define Y_MAX_PIN         20
+  #define Z_MAX_PIN         18
+#endif
 #define X_MIN_PIN         23
-#define X_MAX_PIN         22
 #define Y_MIN_PIN         21
-#define Y_MAX_PIN         20
 #define Z_MIN_PIN         19
-#define Z_MAX_PIN         18
 
 //
 // Steppers
@@ -99,9 +101,7 @@
 #define X_STEP_PIN         0
 #define X_DIR_PIN          1
 #define X_ENABLE_PIN       2
-#ifndef X_CS_PIN
-  #define X_CS_PIN 3
-#endif
+#define X_CS_PIN 3
 
 
 #define Y_STEP_PIN         4
@@ -125,28 +125,30 @@
   #define E0_CS_PIN 28
 #endif
 
-#define E1_STEP_PIN        29
-#define E1_DIR_PIN         30
-#define E1_ENABLE_PIN      31
-#ifndef E1_CS_PIN
-  #define E1_CS_PIN 32
+#if EXTRUDERS == 2
+  #define E1_STEP_PIN        29
+  #define E1_DIR_PIN         30
+  #define E1_ENABLE_PIN      31
+  #ifndef E1_CS_PIN
+    #define E1_CS_PIN 32
+  #endif
+  #define HEATER_1_PIN       14
+  #define TEMP_1_PIN          39   // Extruder 1 / Analog pin numbering: 39 => A20
 #endif
 
 #define HEATER_0_PIN       17
-#define HEATER_1_PIN       14
 #define HEATER_BED_PIN     16
 #ifndef FAN_PIN
   #define FAN_PIN           2
 #endif
 
 #define TEMP_0_PIN          66   // Extruder 0 / Analog pin numbering: 66 => A21 / DAC1
-#define TEMP_1_PIN          39   // Extruder 1 / Analog pin numbering: 39 => A20
 #define TEMP_BED_PIN        67   // Bed  / Analog pin numbering: 67 => A22 / DAC0
 
 #define LED_PIN             15
 
-#define FILWIDTH_PIN        35
-#define FIL_RUNOUT_PIN      34
+// #define FILWIDTH_PIN        35
+// #define FIL_RUNOUT_PIN      34
 
 
 
