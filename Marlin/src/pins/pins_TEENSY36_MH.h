@@ -131,8 +131,10 @@
 #define HEATER_0_PIN       17
 #define HEATER_BED_PIN     16
 #ifndef FAN_PIN
-  #define FAN_PIN           39
+  #define FAN_PIN           38
 #endif
+
+#define FAN2_PIN 37
 
 #define TEMP_0_PIN          66   // Extruder 0 / Analog pin numbering: 66 => A21 / DAC1
 #define TEMP_BED_PIN        67   // Bed  / Analog pin numbering: 67 => A22 / DAC0

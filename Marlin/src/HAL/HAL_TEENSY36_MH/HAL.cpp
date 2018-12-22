@@ -93,27 +93,27 @@ extern "C" {
   }
 }
 
-void HAL_adc_start_conversion(const uint8_t adc_pin) { 
+void HAL_adc_start_conversion(const uint8_t adc_pin) {
   uint16_t pin = pin2sc1a[adc_pin];
   if (pin == 255) {
-     // Digital only pin 
-    ADC0_SC1A = 255;
-    ADC1_SC1A = 255;
-  }
-  if ((pin &128) == 128) {
-    // ADC1
-    ADC1_SC1A = pin & 128;
+    // Digital only
+    HAL_adc_select = -1;
+  } else if ((pin & 128) == 128) {
     HAL_adc_select = 1;
+    ADC1_SC1A = pin - 128;
   } else {
-    // ADC0 
-    ADC0_SC1A = pin;
     HAL_adc_select = 0;
+    ADC0_SC1A = pin;
   }
 }
 
-uint16_t HAL_adc_get_result(void) { 
-  if (HAL_adc_select == 1) return ADC1_RA;
-  return ADC0_RA;
+uint16_t HAL_adc_get_result(void) {
+  if (HAL_adc_select == 0) {
+    return ADC0_RA;
+  } else if (HAL_adc_select == 1) {
+    return ADC1_RA;
+  }
+  return 0;
 }
 
 #endif // __MK64FX512__ || __MK66FX1M0__
