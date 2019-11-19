@@ -21,7 +21,18 @@
  */
 #pragma once
 
-#define SCK_PIN   13
-#define MISO_PIN  12
-#define MOSI_PIN  11
-#define SS_PIN    20 // SDSS // A.28, A.29, B.21, C.26, C.29
+/**
+ * Test TEENSY35_36 specific configuration values for errors at compile-time.
+ */
+
+#if ENABLED(EMERGENCY_PARSER)
+  #error "EMERGENCY_PARSER is not yet implemented for Teensy 3.5/3.6. Disable EMERGENCY_PARSER to continue."
+#endif
+
+#if ENABLED(FAST_PWM_FAN)
+  #error "FAST_PWM_FAN is not yet implemented for this platform."
+#endif
+
+#if ENABLED(SDIO_SUPPORT) && DISABLED(SDSUPPORT)
+  #error "SDIO_SUPPORT requires SDSUPPORT. Enable SDSUPPORT to continue."
+#endif

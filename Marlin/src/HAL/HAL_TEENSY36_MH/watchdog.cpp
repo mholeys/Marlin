@@ -19,9 +19,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-#pragma once
 
-#define SCK_PIN   13
-#define MISO_PIN  12
-#define MOSI_PIN  11
-#define SS_PIN    20 // SDSS // A.28, A.29, B.21, C.26, C.29
+#if defined(__MK64FX512__) || defined(__MK66FX1M0__)
+
+#include "../../inc/MarlinConfig.h"
+
+#if ENABLED(USE_WATCHDOG)
+
+#include "watchdog.h"
+
+void watchdog_init() {
+  WDOG_TOVALH = 0;
+  WDOG_TOVALL = 4000;
+  WDOG_STCTRLH = WDOG_STCTRLH_WDOGEN;
+}
+
+#endif // USE_WATCHDOG
+
+#endif // __MK64FX512__ || __MK66FX1M0__

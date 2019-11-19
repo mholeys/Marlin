@@ -21,7 +21,17 @@
  */
 #pragma once
 
-#define SCK_PIN   13
-#define MISO_PIN  12
-#define MOSI_PIN  11
-#define SS_PIN    20 // SDSS // A.28, A.29, B.21, C.26, C.29
+#include <Servo.h>
+
+// Inherit and expand on core Servo library
+class libServo : public Servo {
+  public:
+    int8_t attach(const int pin);
+    int8_t attach(const int pin, const int min, const int max);
+    void move(const int value);
+  private:
+    typedef Servo super;
+    uint16_t min_ticks;
+    uint16_t max_ticks;
+    uint8_t servoIndex; // Index into the channel data for this servo
+};
