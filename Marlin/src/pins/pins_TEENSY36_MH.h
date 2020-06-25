@@ -46,11 +46,11 @@
       X_DIR_PIN           MOSI1   RX1       0 |     #####     | Analog GND
       X_STEP_PIN          MISO1   TX1       1 |               | 3.3V
       X_CS_PIN                         PWM  2 | *NC     AREF* | 23  A9 PWM                    X_MIN
-      X_EN_PIN            SCL2 CAN0TX  PWM  3 | *A26     A10* | 22  A8 PWM                    X_MAX  SERVO0_PIN
+      X_EN_PIN            SCL2 CAN0TX  PWM  3 | *A26     A10* | 22  A8 PWM                    X_MAX  SERVO0_PIN \
       Y_DIR_PIN           SDA2 CAN0RX  PWM  4 | *A25     A11* | 21  A7 PWM  CS0   MOSI1  RX1  Y_MIN
-      Y_STEP_PIN          MISO1   TX1  PWM  5 | *GND * * 57   | 20  A6 PWM  CS0   SCK1        Y_MAX  SERVO1_PIN
+      Y_STEP_PIN          MISO1   TX1  PWM  5 | *GND * * 57   | 20  A6 PWM  CS0   SCK1        Y_MAX  SERVO1_PIN \
       Y_CS_PIN                         PWM  6 | *GND * * 56   | 19  A5            SCL0        Z_MIN
-      Y_EN_PIN      SCL0  MOSI0   RX3  PWM  7 |      * * 55   | 18  A4            SDA0        Z_MAX  SERVO2_PIN
+      Y_EN_PIN      SCL0  MOSI0   RX3  PWM  7 |      * * 55   | 18  A4            SDA0        Z_MAX  SERVO2_PIN \
       Z_DIR_PIN     SDA0  MISO0   TX3  PWM  8 |      * * 54   | 17  A3 PWM        SDA0        HEATER_0_PIN
       Z_STEP_PIN          CS0     RX2  PWM  9 |               | 16  A2 PWM        SCL0        HEATER_BED_PIN
       Z_CS_PIN            CS0     TX2  PWM 10 |               | 15  A1      CS0               LED_PIN
@@ -62,10 +62,10 @@
       E0_STEP_PIN         SCL2    TX1      26 |   42 * * 51   | 39 A20      MISO0             TEMP_1_PIN
       E0_CS_PIN           SCK0    RX1      27 | *  *  *  *  * | 38 A19 PWM        SDA1        FAN_1
       E0_EN_PIN           MOSI0            28 |   43 * * 50   | 37 A18 PWM        SCL1        FAN_2
-      E1_DIR_PIN          CAN0TX       PWM 29 |   44 * * 49   | 36 A17 PWM                    FAN_3
-      E1_STEP_PIN         CAN0RX       PWM 30 |   45 * * 48   | 35 A16 PWM                    FIL_WIDTH_PIN
-      E1_CS_PIN           CS1     RX4  A12 31 |   46 * * 47   | 34 A15 PWM        SDA0  RX5   FIL_RUNOUT_PIN
-      E1_EN_PIN           SCK1    TX4  A13 32 |__GND_*_*_3.3V_| 33 A14 PWM        SCL0  TX5   Z_PROBE
+      E1_DIR_PIN\         CAN0TX       PWM 29 |   44 * * 49   | 36 A17 PWM                    FAN_3 \
+      E1_STEP_PIN\        CAN0RX       PWM 30 |   45 * * 48   | 35 A16 PWM                    FIL_WIDTH_PIN \
+      E1_CS_PIN\          CS1     RX4  A12 31 |   46 * * 47   | 34 A15 PWM        SDA0  RX5   FIL_RUNOUT_PIN \
+      E1_EN_PIN\          SCK1    TX4  A13 32 |__GND_*_*_3.3V_| 33 A14 PWM        SCL0  TX5   Z_PROBE \
 
           Interior pins:
                                                        * 57               NC
@@ -125,16 +125,21 @@
   #define E1_CS_PIN          31
   #define E1_ENABLE_PIN      32
   #define HEATER_1_PIN       14
-  #define TEMP_1_PIN          39   // Extruder 1 / Analog pin numbering: 39 => A20
+  #define TEMP_1_PIN         39   // Extruder 1 / Analog pin numbering: 39 => A20
+  #define E1_AUTO_FAN_PIN    36
+  #define FAN2_PIN 35 // E1 part cooling fan (Aux fan 1)
+#else
+  #define FAN2_PIN 36 // Aux fan 1
+  #define FAN3_PIN 35 // Aux fan 2
+  // #define TEMP_SENSOR_CHAMBER 39
 #endif
 
 #define HEATER_0_PIN       17
 #define HEATER_BED_PIN     16
+#define E0_AUTO_FAN_PIN 37
 #ifndef FAN_PIN
   #define FAN_PIN           38
 #endif
-
-#define FAN2_PIN 37
 
 #define TEMP_0_PIN          66   // Extruder 0 / Analog pin numbering: 66 => A21 / DAC1
 #define TEMP_BED_PIN        67   // Bed  / Analog pin numbering: 67 => A22 / DAC0
@@ -143,19 +148,6 @@
 
 // #define FILWIDTH_PIN        35
 // #define FIL_RUNOUT_PIN      34
-
-
-
-#if 0
-// Pretty sure this is obsolete!
-// Please use Marlin 1.1.x pins files as reference for new pins files.
-#ifndef SDSUPPORT
-  // these are defined in the SD library if building with SD support
-  #define SCK_PIN          13
-  #define MISO_PIN         12
-  #define MOSI_PIN         11
-#endif
-#endif
 
 #if ENABLED(ZONESTAR_LCD)
   #define LCD_PINS_RS      40
